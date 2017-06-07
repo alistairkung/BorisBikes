@@ -14,6 +14,7 @@ class DockingStation
   end
 
   def dock(bike)
+    fail "Dock is full!" unless self.bike.nil?
     self.bike=(bike)
   end
 

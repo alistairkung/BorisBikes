@@ -44,6 +44,7 @@ describe DockingStation do
 
     context "when dock is full" do
       it "should raise an error" do
+        bike = Bike.new
         expect{subject.dock(bike)}.to raise_error
       end
     end

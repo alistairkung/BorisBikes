@@ -38,8 +38,16 @@ describe DockingStation do
   describe "#dock" do
     it "should dock a bike" do
       bike = Bike.new
+      subject.bike=(nil)
       expect{subject.dock(bike)}.to change{subject.bike}.from(subject.bike).to(bike)
     end
+
+    context "when dock is full" do
+      it "should raise an error" do
+        expect{subject.dock(bike)}.to raise_error
+      end
+    end
+
 
 
 

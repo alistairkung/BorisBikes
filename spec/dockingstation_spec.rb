@@ -16,6 +16,14 @@ describe DockingStation do
       expect(bike).to be_working
     end
 
+  end
+
+  describe "#dock" do
+
+    it "should dock a bike" do
+      bike = Bike.new
+      expect{subject.dock(bike)}.to change{@bike}.from(nil).to(bike)
     end
 
+  end
 end

@@ -3,13 +3,16 @@ require 'Bike.rb'
 
 describe DockingStation do
 
+
+
   it { is_expected.to respond_to(:release_bike) }
   it { is_expected.to respond_to(:dock).with(1).argument }
 
   describe "#release_bike" do
 
-    it "should return a bike" do
-      expect(subject.release_bike).to be_an_instance_of(Bike)
+    it "should return a particular bike" do
+      bike = subject.bikes[-1]
+      expect(subject.release_bike).to eq(bike)
     end
 
     it "will return a working bike" do
@@ -19,8 +22,8 @@ describe DockingStation do
 
     context "when the dock is empty" do
       it "should raise an error" do
-        subject.bike=(nil)
-        expect{subject.release_bike}.to raise_error(RuntimeError)
+        subject.bikes=([])
+        expect{subject.release_bike}.to raise_error("No bikes are there!")
       end
     end
 
@@ -29,28 +32,38 @@ describe DockingStation do
   describe "#bike" do
 
     it "allows me to see a docked bike" do
-        bike = Bike.new
-        subject.bike=(bike)
-        expect(subject.bike).to eq bike
+      subject.bikes=([])
+      bike = Bike.new
+      subject.bikes << bike
+      expect(subject.bikes).to eq [bike]
     end
   end
 
+
   describe "#dock" do
+
     it "should dock a bike" do
+      subject.bikes.pop
       bike = Bike.new
-      subject.bike=(nil)
-      expect{subject.dock(bike)}.to change{subject.bike}.from(subject.bike).to(bike)
+      subject.dock(bike)
+      expect(subject.bikes).to include(bike)
     end
 
+
     context "when dock is full" do
+
+      before do
+        18.times { subject.dock(Bike.new)}
+      end
+
       it "should raise an error" do
         bike = Bike.new
-        expect{subject.dock(bike)}.to raise_error
+        subject.dock(bike)
+        expect{subject.dock(bike)}.to raise_error("Dock is full!")
       end
     end
 
 
-
-
   end
+
 end

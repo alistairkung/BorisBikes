@@ -2,20 +2,23 @@ require_relative 'Bike.rb'
 
 class DockingStation
 
-  attr_accessor :bike
+  attr_accessor :bikes
+
+ CAPACITY = 20
 
   def initialize
-    @bike = Bike.new
+    @bikes = [Bike.new]
   end
 
   def release_bike
-    fail "No bikes are there!" if bike.nil?
-    Bike.new
+    fail "No bikes are there!" if bikes.empty?
+    @bikes.pop
   end
 
   def dock(bike)
-    fail "Dock is full!" unless self.bike.nil?
-    self.bike=(bike)
+    fail "Dock is full!" if self.bikes.length == CAPACITY
+    self.bikes << bike
   end
+
 
 end

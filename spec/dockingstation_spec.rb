@@ -1,6 +1,7 @@
 require 'DockingStation.rb'
 require 'Bike.rb'
 
+
 describe DockingStation do
 
 
@@ -52,13 +53,10 @@ describe DockingStation do
 
     context "when dock is full" do
 
-      before do
-        18.times { subject.dock(Bike.new)}
-      end
-
       it "should raise an error" do
+        subject.bikes.clear
         bike = Bike.new
-        subject.dock(bike)
+        DockingStation::DEFAULT_CAPACITY.times { subject.dock(bike)}
         expect{subject.dock(bike)}.to raise_error("Dock is full!")
       end
     end

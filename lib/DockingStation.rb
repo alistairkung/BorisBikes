@@ -4,7 +4,7 @@ class DockingStation
 
   attr_accessor :bikes
 
- CAPACITY = 20
+ DEFAULT_CAPACITY = 20
 
   def initialize
     @bikes = [Bike.new]
@@ -23,12 +23,11 @@ class DockingStation
 private
 
   def full?
-    self.bikes.length == CAPACITY
+    self.bikes.length == DEFAULT_CAPACITY
   end
 
   def empty?
     self.bikes.empty?
   end
-
 
 end

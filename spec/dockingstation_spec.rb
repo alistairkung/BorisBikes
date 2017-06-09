@@ -21,12 +21,12 @@ describe DockingStation do
       expect(subject.release_bike).to eq(bike)
     end
 
-
+    let(:bike) { double :bike }
     it "will search bikes for a working bike" do
-      bike = Bike.new
-      bike.report_broken
+      allow(bike).to receive(:working?).and_return(true)
       subject.dock(bike)
-      expect(subject.release_bike.working?).to eq(true)
+      released_bike = subject.release_bike
+      expect(released_bike).to be_working
     end
 
     it "will return a working bike" do

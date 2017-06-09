@@ -14,6 +14,7 @@ class DockingStation
   def release_bike
     fail "No bikes are there!" if empty?
     index = bikes.find_index { |bike| bike.working? }
+    fail "No working bikes!" if index == nil
     bikes[index]
     bikes.delete_at(index)
   end

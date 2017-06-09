@@ -21,6 +21,14 @@ describe DockingStation do
       expect(subject.release_bike).to eq(bike)
     end
 
+
+    it "will search bikes for a working bike" do
+      bike = Bike.new
+      bike.report_broken
+      subject.dock(bike)
+      expect(subject.release_bike.working?).to eq(true)
+    end
+
     it "will return a working bike" do
       bike = subject.release_bike
       expect(bike).to be_working
